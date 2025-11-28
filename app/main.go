@@ -4,10 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/FernandoVT10/go-auth/app/controllers"
 	"github.com/FernandoVT10/go-auth/app/db"
 	"github.com/FernandoVT10/go-auth/app/utils"
-	"github.com/FernandoVT10/go-auth/app/utils/http"
 )
 
 func main() {
@@ -24,31 +22,7 @@ func main() {
         utils.LogFatal(err.Error())
     }
 
-    router := NewRouter()
-
-    router.Post("/register", func(w http.ResponseWriter, r *http.Request) {
-        var data controllers.RegisterUserData
-
-        err := httpUtils.ParseJSON(r, &data)
-        if err != nil {
-            httpUtils.SendErrorMsg(w, http.StatusBadRequest, err.Error())
-            return
-        }
-
-        err = data.Validate()
-        if err != nil {
-            httpUtils.SendErrorMsg(w, http.StatusBadRequest, err.Error())
-            return
-        }
-
-        err = controllers.RegisterUser(data)
-        if err != nil {
-            httpUtils.HandleError(w, err)
-            return
-        }
-
-        w.WriteHeader(http.StatusOK)
-    })
+    router := GetRoutes()
 
     http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
         if router.Serve(w, r) {
