@@ -4,11 +4,14 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/FernandoVT10/go-auth/app/constants"
 	"github.com/FernandoVT10/go-auth/app/db"
 	"github.com/FernandoVT10/go-auth/app/utils"
 )
 
 func main() {
+    constants.Initialize()
+
     utils.LogInfo("Connecting to db...")
     err := db.Connect()
     if err != nil {
@@ -30,7 +33,7 @@ func main() {
         }
 
         w.WriteHeader(http.StatusNotFound)
-        fmt.Fprintf(w, "404")
+        fmt.Fprintf(w, "Not Found")
     })
 
     utils.LogInfo("Server listening on port 3000")
