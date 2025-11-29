@@ -9,7 +9,7 @@ I have implemented just 4 routes, since the aim was to create something simple. 
 
 # Running
 It's quite easy! You just need to pass one env variable `SECRET_JWT_KEY`. So you can just run this:
-```console
-$ SECRET_JWT_KEY=secret go run ./app/
+```bash
+SECRET_JWT_KEY=secret go run ./app/
 ```
 
